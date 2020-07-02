@@ -1,0 +1,10 @@
+.btn,
+.jumbotron,
+.nav :hover {
+  border-radius: 0px;
+}
+html,
+body {
+  box-sizing: border-box;
+  background-color: #343a40;
+}
