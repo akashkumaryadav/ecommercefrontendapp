@@ -1,0 +1,53 @@
+import React from "react";
+import Menu from "./Menu";
+import "react-toastify/dist/ReactToastify.css";
+import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+    paddingTop: "5em",
+  },
+  heroText: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+});
+
+const Base = ({ title, descripton, children }) => {
+  const classes = useStyles();
+  return (
+    <>
+      <Menu />
+      <Container className={classes.root}>
+        <Grid container spacing={2}>
+          <Container className={classes.heroText}>
+            <Typography variant="h2">{title}</Typography>
+            <br></br>
+            <Typography variant="h4">{descripton}</Typography>
+          </Container>
+        </Grid>
+        <Grid>
+          <main>{children}</main>
+        </Grid>
+      </Container>
+      {/* <footer className="footer bg-dark mt-auto py-3 ">
+        <div className="container-fluid bg-info text-white text-center rounded-top">
+          if you have any questions, free feel to reach us
+          <br />
+          <button className="btn btn-warning btn-lg"> Contact us</button>
+        </div>
+        <div className="container">
+          <span className="text-muted">
+            An <strong className="text-white">Amazing Place</strong> to shop
+          </span>
+        </div>
+      </footer> */}
+    </>
+  );
+};
+
+export default Base;

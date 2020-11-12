@@ -1,9 +1,18 @@
 import React from "react";
+import Routes from "./Routes";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   return (
-    <div>
-      <h1>This is React App </h1>
-    </div>
+    <>
+      <ToastContainer
+        autoClose={3000}
+        draggable={true}
+        closeOnClick={true}
+        position="top-right"
+        hideProgressBar={true}
+      />
+      <Routes />
+    </>
   );
 }
