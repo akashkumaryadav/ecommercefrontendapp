@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import Home from "./core/Home";
-import { SignIn } from "./user/SignIn";
-import { SignUp } from "./user/SignUp";
+import { SignIn } from "./user/Signin";
+import { SignUp } from "./user/Signup";
 import { NotFound } from "./NotFound";
 import AdminRoutes from "./auth/helper/AdminRoutes";
 import PrivateRoutes from "./auth/helper/PrivateRoutes";

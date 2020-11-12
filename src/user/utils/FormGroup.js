@@ -1,15 +1,36 @@
+import { makeStyles, TextField } from "@material-ui/core";
 import React from "react";
 
-export const FormGroup = ({ type, label, value, onChange }) => {
+const useStyles = makeStyles({
+  inputBox: {
+    marginBottom: 10,
+  },
+});
+
+export const FormGroup = ({
+  type,
+  label,
+  value,
+  onChange,
+  error,
+  required,
+}) => {
+  const classes = useStyles();
   return (
-    <div className="form-group">
-      <label className="text-light">{label}</label>
-      <input
+    <div>
+      <TextField
+        required={required}
+        error={error}
+        helperText={error && `please provide valid ${label}`}
+        fullWidth
+        variant="outlined"
         name={`${label.toLowerCase()}`}
         type={type}
-        className="form-control"
+        className={classes.inputBox}
         value={value}
         onChange={onChange}
+        label={label}
+        color="secondary"
       />
     </div>
   );

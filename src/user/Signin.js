@@ -4,24 +4,20 @@ import { FormGroup } from "./utils/FormGroup";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
 import { signin, authenticate, isAuthenticated } from "../auth/helper/index";
-
-const successToast = (msg) => {
-  toast.success(msg);
-};
-
-const errorToast = (msg) => {
-  toast.error(msg);
-};
+import { Button, Grid, makeStyles, TextField } from "@material-ui/core";
+import Logo from "../core/Logo";
+import errorField from "./utils/formValidation";
 
 export const SignIn = () => {
   const [values, setValues] = useState({
-    email: "a@gmail.com",
-    password: "code",
+    email: "",
+    password: "",
+    errors: [],
     didRedirect: false,
     loading: false,
   });
 
-  const { email, password, didRedirect, loading } = values;
+  const { email, password, didRedirect, loading, errors } = values;
   const { user } = isAuthenticated();
 
   const handleOnChange = (event) => {
@@ -46,7 +42,7 @@ export const SignIn = () => {
     signin({ email, password })
       .then((data) => {
         if (data.errors) {
-          data.errors.map((error) => errorToast(error));
+          setValues({ ...values, errors: data.errors });
         } else {
           authenticate(data, () => {
             setValues({
@@ -55,9 +51,10 @@ export const SignIn = () => {
               password: "",
               didRedirect: true,
               loading: true,
+              errors: [],
             });
           });
-          successToast("You have been successfully loggedin");
+          toast.success("You have been successfully loggedin");
         }
       })
       .catch((err) => {
@@ -65,33 +62,41 @@ export const SignIn = () => {
       });
   };
   return (
-    <Base title="Sign In page" descripton="This wil be a signin page">
+    <Base>
+      <Logo />
       {performRedirect()}
-      <div className="row">
-        <div className="col-md-6 offset-sm-3">
+      <Grid container justify="space-around" spacing={2}>
+        <Grid item lg={8} md={8} xs={12} sm={12}>
           <form>
             <FormGroup
+              required
+              error={errors && "email" === errorField("email", errors)}
               type="email"
               label="Email"
               onChange={handleOnChange}
               value={email}
             />
             <FormGroup
+              required
+              error={errors && "password" === errorField("password", errors)}
               type="password"
               label="Password"
               value={password}
               onChange={handleOnChange}
             />
-            <button
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
               type="submit"
               className="btn btn-warning btn-block"
               onClick={handleOnClick}
             >
               Login
-            </button>
+            </Button>
           </form>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </Base>
   );
 };

@@ -30,9 +30,9 @@ const Base = ({ title, descripton, children }) => {
             <Typography variant="h4">{descripton}</Typography>
           </Container>
         </Grid>
-        <Grid>
+        <Container>
           <main>{children}</main>
-        </Grid>
+        </Container>
       </Container>
       {/* <footer className="footer bg-dark mt-auto py-3 ">
         <div className="container-fluid bg-info text-white text-center rounded-top">
