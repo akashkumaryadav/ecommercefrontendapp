@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -45,30 +46,32 @@ function ProductCard({ product }) {
   }, []);
 
   return (
-    <Card>
-      <CardMedia
-        className={classes.media}
-        image={`${productImage.url}`}
-        title="Paella dish"
-      />
-      <CardContent>
-        <CardHeader title={name} />
-        {description.length > 40
-          ? description.substring(0, description.length / 2)
-          : description}
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton>
-          <Favorite />
-        </IconButton>
-        <IconButton className={classes.shareProduct}>
-          <Share />
-        </IconButton>
-        <IconButton className={classes.addToCart}>
-          <ShoppingBasket />
-        </IconButton>
-      </CardActions>
-    </Card>
+    <Box boxShadow="10">
+      <Card>
+        <CardMedia
+          className={classes.media}
+          image={`${productImage.url}`}
+          title="Paella dish"
+        />
+        <CardContent>
+          <CardHeader title={name} />
+          {description.length > 40
+            ? description.substring(0, description.length / 2)
+            : description}
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton>
+            <Favorite />
+          </IconButton>
+          <IconButton className={classes.shareProduct}>
+            <Share />
+          </IconButton>
+          <IconButton className={classes.addToCart}>
+            <ShoppingBasket />
+          </IconButton>
+        </CardActions>
+      </Card>
+    </Box>
   );
 }
 
