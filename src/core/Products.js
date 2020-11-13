@@ -26,7 +26,11 @@ function Products() {
           </Grid>
         ))}
       </Grid>
-      <Grid container justify="center" style={{ marginTop: 20 }}>
+      <Grid
+        container
+        justify="center"
+        style={{ marginTop: 20, paddingBottom: 20 }}
+      >
         <ButtonGroup>
           <Button
             variant="outlined"
