@@ -57,8 +57,6 @@ function ProductCard({ product }) {
   }, []);
 
   return (
-          {description.length > 40
-          <CardHeader title={name} />
     <Card className={`${classes.root} cards`}>
       <CardMedia
         className={classes.media}
