@@ -29,6 +29,19 @@ export const getAllCategories = () => {
     .catch((err) => console.log(err, "from get all categories"));
 };
 
+//remove a category
+export const removeCategory = (categoryId, userId, token) => {
+  return fetch(`${API}/category/${categoryId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((reposnse) => reposnse.json())
+    .then((result) => result)
+    .catch((err) => console.log(err));
+};
+
 // product based calls
 export const createProduct = (userId, token, product) => {
   return fetch(`${API}/product/create/${userId}`, {

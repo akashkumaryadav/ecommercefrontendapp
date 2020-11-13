@@ -43,6 +43,9 @@ export const AddProduct = () => {
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
+    if (!values.formData.get("category")) {
+      values.formData.set("category", values.category);
+    }
     const data = await createProduct(user.id, auth_token, values.formData);
     if (data.error) {
       console.log(data.error);
