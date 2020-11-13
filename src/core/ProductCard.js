@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -31,11 +30,10 @@ const useStyles = makeStyles({
     color: blue[800],
   },
 });
-
 function ProductCard({ product }) {
+  const classes = useStyles();
   const { _id, name, description, price, category, stock } = product;
   const [productImage, setProductImage] = useState("");
-  const classes = useStyles();
 
   useEffect(() => {
     // getProductImage
