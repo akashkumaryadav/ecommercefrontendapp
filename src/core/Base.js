@@ -25,12 +25,12 @@ const Base = ({ title, descripton, children }) => {
       <Container className={classes.root}>
         <Grid container spacing={2}>
           <Container className={classes.heroText}>
-            <Typography variant="h2">{title}</Typography>
+            <Typography variant="h5">{title}</Typography>
             <br></br>
-            <Typography variant="h4">{descripton}</Typography>
+            <Typography variant="h6">{descripton}</Typography>
           </Container>
         </Grid>
-        <Container>
+        <Container maxWidth="xl">
           <main>{children}</main>
         </Container>
       </Container>
