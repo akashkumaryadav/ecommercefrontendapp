@@ -31,11 +31,14 @@ const useStyles = makeStyles({
     marginLeft: "auto",
     color: green[800],
     "&:hover": {
-      backgroundColor: amber[400],
+      backgroundColor: green[200],
     },
   },
   shareProduct: {
     color: blue[800],
+    "&:hover": {
+      backgroundColor: blue[200],
+    },
   },
 });
 

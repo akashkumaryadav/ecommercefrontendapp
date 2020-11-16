@@ -42,6 +42,27 @@ export const removeCategory = (categoryId, userId, token) => {
     .catch((err) => console.log(err));
 };
 
+/**
+ * PUT request Update the category
+ * @param {categoryId}
+ * @param {userId}
+ * @param {token}
+ */
+export const updateCategory = (category, userId, token) => {
+  return fetch(`${API}/category/${category._id}/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(category),
+  })
+    .then((response) => response.json())
+    .then((result) => result)
+    .catch((err) => console.log(err));
+};
+
 // product based calls
 export const createProduct = (userId, token, product) => {
   return fetch(`${API}/product/create/${userId}`, {
