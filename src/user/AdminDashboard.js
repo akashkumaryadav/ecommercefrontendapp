@@ -2,86 +2,118 @@ import React from "react";
 import Base from "../core/Base";
 import { isAuthenticated } from "../auth/helper";
 import { Link } from "react-router-dom";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Container,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
+
+const useStyles = makeStyles({
+  links: {
+    textDecoration: "none",
+  },
+  profile_head: {
+    margin: "10px",
+  },
+});
 
 export const AdminDashboard = () => {
   const { name, email } = isAuthenticated().user;
+  const classes = useStyles();
   return (
     <Base title="Admin Dashboard" descripton="this is admin dashboard 😎">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-3">
-            <div className="card">
-              <div className="card-header text-dark">
-                Profile{" "}
-                <small className="badge-danger rounded-pill p-1 float-right">
-                  Admin
-                </small>
-              </div>
-              <ul className="card-body  m-0 p-0">
-                <li className="nav-link text-dark">
-                  Name: <span className="text-dark-50">{name}</span>
-                </li>
-                <li className="nav-link text-dark">
-                  Email: <span className="text-dark-50">{email}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-lg-9 text-dark">
-            <div className="card">
-              <div className="card-header">
-                <strong>Manage Products Here</strong>
-              </div>
-              <div className="card-body">
-                <Link
-                  to="/admin/create/category"
-                  className="nav-link border-bottom"
-                >
-                  Create Category
-                </Link>
-                <Link
-                  to="/admin/manage/categories"
-                  className="nav-link border-bottom"
-                >
-                  Manage Categories
-                </Link>
-                <Link
-                  to="/admin/create/product"
-                  className="nav-link border-bottom"
-                >
-                  Create Product
-                </Link>
-                <Link
-                  to="admin/product/create"
-                  className="nav-link border-bottom"
-                >
-                  Manage Products
-                </Link>
-                <Link
-                  to="admin/order/create"
-                  className="nav-link border-bottom"
-                >
-                  Manage Orders
-                </Link>
-              </div>
-              <div className="card-footer p-2 border-top-0">
-                <div className="row">
-                  <div className="col-lg-5 col-md-5 col-sm-5 col-xs-11 m-1">
-                    <button className="btn btn-warning rounded-pill">
-                      User dashboard
-                    </button>
-                  </div>
-                  <div className="col-lg-5 col-md-5 col-sm-5 col-xs-11 m-1">
-                    <button className="btn btn-info rounded-pill">
-                      Product page
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Grid container>
+        <Grid item lg={12}>
+          <Card className="card" className={classes.profile_head}>
+            <CardHeader title="Profile Admin" />
+            <CardContent>
+              <Typography>Name: {name}</Typography>
+              <Typography>address: {email}</Typography>
+            </CardContent>
+          </Card>
+          <Grid container>
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <Card>
+                <CardHeader title="Manage Everything Here 😎"></CardHeader>
+                <CardContent>
+                  <List>
+                    <ListItem>
+                      <ListItemText>
+                        <Link
+                          to="/admin/create/category"
+                          className={classes.links}
+                        >
+                          Create Category
+                        </Link>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText>
+                        <Link
+                          to="/admin/manage/categories"
+                          className={classes.links}
+                        >
+                          Manage Categories
+                        </Link>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText>
+                        <Link
+                          to="/admin/create/product"
+                          className={classes.links}
+                        >
+                          Create Product
+                        </Link>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText>
+                        <Link
+                          to="admin/product/create"
+                          className={classes.links}
+                        >
+                          Manage Products
+                        </Link>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText>
+                        <Link to="admin/order/create" className={classes.links}>
+                          Manage Orders
+                        </Link>
+                      </ListItemText>
+                    </ListItem>
+                  </List>
+                </CardContent>
+                <CardActions>
+                  <Grid container>
+                    <Grid item lg={6} md={10} sm={12} xs={12}>
+                      <Button fullWidth variant="contained" color="secondary">
+                        User Dashboard
+                      </Button>
+                    </Grid>
+                    <Grid item lg={6} md={10} sm={12} xs={12}>
+                      <Button fullWidth variant="contained" color="primary">
+                        Product Page
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     </Base>
   );
 };
