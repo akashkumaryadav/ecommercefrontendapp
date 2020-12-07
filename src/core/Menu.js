@@ -45,7 +45,7 @@ const Menu = () => {
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <NavLink className={classes.menuItem} to="/cart">
+            <NavLink className={classes.menuItem} to="/user/cart">
               Cart
             </NavLink>
           </MenuItem>

@@ -5,7 +5,39 @@ import { useEffect } from "react";
 import { getAllCategories, createProduct } from "./helper/adminapicalls";
 import { isAuthenticated } from "../auth/helper";
 import { toast } from "react-toastify";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  FormGroup,
+  Grid,
+  InputLabel,
+  makeStyles,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+    width: "100%",
+    [`@media (min-width:780px)`]: {
+      width: "60%",
+    },
+    marginLeft: "auto",
+    marginRight: "auto",
+    boxShadow: "10px 10px 20px 5px rgba(25,25,25,0.2)",
+  },
+  input: {
+    margin: 10,
+  },
+});
+
 export const AddProduct = () => {
+  const classes = useStyles();
   const { user, auth_token } = isAuthenticated();
   const [values, setValues] = useState({
     categories: [],
@@ -58,74 +90,87 @@ export const AddProduct = () => {
 
   return (
     <Base title="Add a Product" descripton="add your product to sell 🤗">
-      <div className="row">
-        <form className="col-lg-6 col-md-8 col-sm-12 offset-lg-3">
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              name="name"
-              onChange={handleOnChange}
-              placeholder="product name"
-            />
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              name="description"
-              onChange={handleOnChange}
-              placeholder="product descriptoin"
-            />
-          </div>
-          <div className="form-group">
-            <select
-              className="form-control"
-              name="category"
-              onChange={handleOnChange}
-            >
-              {values.categories[0] &&
-                values.categories[0].map((option) => (
-                  <option key={option._id} value={option._id}>
-                    {option.name}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="number"
-              name="stock"
-              min={0}
-              onChange={handleOnChange}
-              placeholder="stock available"
-            />
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="number"
-              name="price"
-              min={0}
-              onChange={handleOnChange}
-              placeholder="price per product"
-            />
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="file"
-              name="photo"
-              onChange={handleOnChange}
-              placeholder="price per product"
-            />
-          </div>
-          <button className="btn btn-primary" onClick={handleOnSubmit}>
-            Add Product
-          </button>
-        </form>
-      </div>
+      <Grid container alignContent="center" justify="center">
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Card className={classes.root}>
+            <CardHeader title="Add Product" style={{ textAlign: "center" }} />
+            <CardContent>
+              <Typography align="center">Fill Out The Details</Typography>
+              <form>
+                <FormGroup>
+                  <TextField
+                    className={classes.input}
+                    type="text"
+                    name="name"
+                    onChange={handleOnChange}
+                    placeholder="product name"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <TextField
+                    className={classes.input}
+                    type="text"
+                    name="description"
+                    onChange={handleOnChange}
+                    placeholder="product descriptoin"
+                  />
+                </FormGroup>
+                <FormGroup className={classes.input}>
+                  <InputLabel id="category_label">Category</InputLabel>
+                  <Select
+                    labelId="category_label"
+                    name="category"
+                    id="category"
+                    onChange={handleOnChange}
+                  >
+                    {values.categories[0] &&
+                      values.categories[0].map((option) => (
+                        <MenuItem key={option._id} value={option._id}>
+                          {option.name}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormGroup>
+                <FormGroup>
+                  <TextField
+                    className={classes.input}
+                    type="number"
+                    name="stock"
+                    min={0}
+                    onChange={handleOnChange}
+                    placeholder="stock available"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <TextField
+                    className={classes.input}
+                    type="number"
+                    name="price"
+                    min={0}
+                    onChange={handleOnChange}
+                    placeholder="price per product"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <input
+                    className={classes.input}
+                    type="file"
+                    name="photo"
+                    onChange={handleOnChange}
+                  />
+                </FormGroup>
+                <Button
+                  onClick={handleOnSubmit}
+                  variant="contained"
+                  color="primary"
+                >
+                  AddProduct
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
       <Link to="/admin/dashboard">Go to admin dashboard</Link>
     </Base>
   );

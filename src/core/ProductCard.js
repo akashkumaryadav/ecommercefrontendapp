@@ -15,6 +15,7 @@ import { Favorite, Share, ShoppingBasket } from "@material-ui/icons";
 import { amber, green, blue, pink } from "@material-ui/core/colors";
 import { gsap } from "gsap";
 import { API } from "../backend";
+import { addItemToCart, addToCart } from "./helper/carthelper";
 
 const useStyles = makeStyles({
   root: {
@@ -57,8 +58,13 @@ function ProductCard({ product }) {
       .then((data) => setProductImage(data))
       .catch((err) => console.log(err));
     fadeIn();
-  }, []);
+  }, [product]);
 
+  const addToCart = () => {
+    product["inCart"] = true;
+    addItemToCart(product, () => {});
+  };
+  console.log(product.inCart);
   return (
     <Card className={`${classes.root} cards`}>
       <CardMedia
@@ -92,9 +98,11 @@ function ProductCard({ product }) {
         <IconButton className={classes.shareProduct}>
           <Share />
         </IconButton>
-        <IconButton className={classes.addToCart}>
-          <ShoppingBasket />
-        </IconButton>
+        {!product.inCart && (
+          <Button variant="outlined" color="secondary" onClick={addToCart}>
+            Add To Cart
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

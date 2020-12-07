@@ -11,6 +11,7 @@ import { AdminDashboard } from "./user/AdminDashboard";
 import { AddCategory } from "./admin/AddCategory";
 import { AddProduct } from "./admin/AddProduct";
 import { ManageCategory } from "./admin/ManageCategory";
+import Cart from "./core/Cart";
 
 export default function Routes() {
   return (
@@ -45,6 +46,7 @@ export default function Routes() {
             exact
             component={UserDashboard}
           />
+          <PrivateRoutes path="/user/cart" exact component={Cart} />
           <Route component={NotFound} />
         </Switch>
       </Router>

@@ -1,6 +1,8 @@
 import { Button, ButtonGroup, Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../admin/helper/adminapicalls";
+import CartCard from "./CartCard";
+import { addToCart } from "./helper/carthelper";
 import ProductCard from "./ProductCard";
 
 function Products() {
@@ -11,6 +13,7 @@ function Products() {
       .then((products) => setProducts(products))
       .catch((err) => console.log(err));
   }, [limit]);
+
   return (
     <>
       <Grid
@@ -22,7 +25,7 @@ function Products() {
       >
         {products.map((product) => (
           <Grid item key={product._id} lg={3} md={4} sm={4} xs={12}>
-            <ProductCard product={product} />
+            <CartCard product={product} />
           </Grid>
         ))}
       </Grid>
