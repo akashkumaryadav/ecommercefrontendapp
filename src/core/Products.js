@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Grid } from "@material-ui/core";
+import { Button, ButtonGroup, Grid, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../admin/helper/adminapicalls";
 import CartCard from "./CartCard";
@@ -23,11 +23,15 @@ function Products() {
         alignContent="center"
         justify="space-evenly"
       >
-        {products.map((product) => (
-          <Grid item key={product._id} lg={3} md={4} sm={4} xs={12}>
-            <CartCard product={product} />
-          </Grid>
-        ))}
+        {products.length > 0 ? (
+          products.map((product) => (
+            <Grid item key={product._id} lg={3} md={4} sm={4} xs={12}>
+              <CartCard product={product} />
+            </Grid>
+          ))
+        ) : (
+          <Typography variant="h5">No Products 😯 You Have to Wait</Typography>
+        )}
       </Grid>
       <Grid
         container

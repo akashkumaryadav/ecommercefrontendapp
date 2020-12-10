@@ -1,8 +1,5 @@
 import { API } from "../../backend";
 
-console.log("API", API);
-console.log(process.env);
-
 export const signup = (user) => {
   return fetch(`${API}/signup`, {
     method: "POST",
