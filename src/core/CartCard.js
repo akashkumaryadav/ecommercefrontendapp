@@ -9,7 +9,6 @@ const CartCard = ({
   addtoCart = true,
   removeFromCart = false,
   setReload = (f) => f,
-  //   function(f){return f}
   reload = undefined,
 }) => {
   const [redirect, setRedirect] = useState(false);

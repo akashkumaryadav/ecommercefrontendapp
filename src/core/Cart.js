@@ -4,7 +4,9 @@ import { API } from "../backend";
 import Base from "./Base";
 import { loadCart } from "./helper/carthelper";
 import CartCard from "./CartCard";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
+import PaymentBraintree from "./PaymentBraintree";
+import Store from "./paymentB.tsx";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -14,7 +16,7 @@ const Cart = () => {
     setProducts(loadCart());
   }, [reload]);
 
-  const loadAllProducts = () => {
+  const loadAllProducts = (products) => {
     return (
       <Grid
         container
@@ -24,7 +26,7 @@ const Cart = () => {
         justify="space-evenly"
       >
         {products.map((product, index) => (
-          <Grid item key={product._id} lg={3} md={4} sm={4} xs={12}>
+          <Grid item key={product._id} lg={4} md={4} sm={4} xs={12}>
             <CartCard
               key={index}
               product={product}
@@ -38,20 +40,23 @@ const Cart = () => {
       </Grid>
     );
   };
-  const loadCheckout = () => {
-    return (
-      <div>
-        <h2>This section for checkout</h2>
-      </div>
-    );
-  };
 
   return (
-    <Base title="Cart Page" description="Ready to checkout">
-      <div className="row text-center">
-        <div className="col-6">{loadAllProducts()}</div>
-        <div className="col-6">Checkout section</div>
-      </div>
+    <Base title="Your Cart" description="Ready to checkout">
+      <Grid container spacing={2}>
+        <Grid item lg={8} md={6} sm={12} xs={12}>
+          {products.length > 0 ? (
+            loadAllProducts(products)
+          ) : (
+            <Typography variant="h6" align="center">
+              Cart Is Empty
+            </Typography>
+          )}
+        </Grid>
+        <Grid item lg={4} md={6} sm={12} xs={12} className="col-6">
+          <PaymentBraintree products={products} setReload={reload} />
+        </Grid>
+      </Grid>
     </Base>
   );
 };

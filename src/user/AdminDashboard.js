@@ -32,7 +32,7 @@ export const AdminDashboard = () => {
   return (
     <Base title="Admin Dashboard" descripton="this is admin dashboard 😎">
       <Grid container>
-        <Grid item lg={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <Card className="card" className={classes.profile_head}>
             <CardHeader title="Profile Admin" />
             <CardContent>
