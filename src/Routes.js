@@ -12,10 +12,20 @@ import { AddCategory } from "./admin/AddCategory";
 import { AddProduct } from "./admin/AddProduct";
 import { ManageCategory } from "./admin/ManageCategory";
 import Cart from "./core/Cart";
+import { makeStyles } from "@material-ui/core";
+import ManageProducts from "./admin/ManageProduct";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.background.default,
+    minHeight: "100vh",
+  },
+}));
 
 export default function Routes() {
+  const classes = useStyles();
   return (
-    <div>
+    <div className={classes.root}>
       <Router>
         <Switch>
           <Route path="/" exact component={Home}></Route>
@@ -40,6 +50,11 @@ export default function Routes() {
             path="/admin/manage/categories"
             exact
             component={ManageCategory}
+          />
+          <AdminRoutes
+            path="/admin/product/update"
+            exact
+            component={ManageProducts}
           />
           <PrivateRoutes
             path="/user/dashboard"

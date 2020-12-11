@@ -281,7 +281,7 @@ class ToolbarComponent extends React.Component {
                           }
                           color="secondary"
                         >
-                          <ShoppingCart />
+                          <ShoppingCart color="secondary" />
                         </Badge>
                       </NavLink>
                     </IconButton>

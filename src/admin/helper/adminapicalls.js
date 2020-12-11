@@ -78,6 +78,20 @@ export const createProduct = (userId, token, product) => {
     .catch((err) => console.log(err, "from Product calls"));
 };
 
+export const deleteProduct = (productId, userId, token) => {
+  return fetch(`${API}/product/${productId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
 /**
  *
  * @param {userId} param0  current logged in user

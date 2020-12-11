@@ -47,7 +47,7 @@ function Products() {
             More Products
           </Button>
           <Button
-            variant="outlined"
+            variant="contained"
             color="secondary"
             onClick={limit > 4 ? () => setLimit(limit - 4) : setLimit(8)}
             disabled={limit === 8}

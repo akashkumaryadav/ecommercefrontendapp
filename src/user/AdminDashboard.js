@@ -78,7 +78,7 @@ export const AdminDashboard = () => {
                     <ListItem>
                       <ListItemText>
                         <Link
-                          to="admin/product/create"
+                          to="/admin/product/update"
                           className={classes.links}
                         >
                           Manage Products
@@ -98,12 +98,22 @@ export const AdminDashboard = () => {
                   <Grid container>
                     <Grid item lg={6} md={10} sm={12} xs={12}>
                       <Button fullWidth variant="contained" color="secondary">
-                        User Dashboard
+                        <Link
+                          to="/user/dashboard"
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          User DashBoard
+                        </Link>
                       </Button>
                     </Grid>
                     <Grid item lg={6} md={10} sm={12} xs={12}>
                       <Button fullWidth variant="contained" color="primary">
-                        Product Page
+                        <Link
+                          to="/"
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          Products Page
+                        </Link>
                       </Button>
                     </Grid>
                   </Grid>

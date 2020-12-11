@@ -60,9 +60,7 @@ export const AddProduct = () => {
         })
       )
       .catch((err) => console.log(err));
-  }, [values]);
-
-  console.log(user.id);
+  }, []);
 
   const handleOnChange = (e) => {
     const value =

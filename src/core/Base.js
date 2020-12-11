@@ -3,10 +3,11 @@ import Menu from "./Menu";
 import "react-toastify/dist/ReactToastify.css";
 import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     paddingTop: "5em",
+    backgroundColor: theme.palette.background,
   },
   heroText: {
     display: "flex",
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
     alignContent: "center",
     alignItems: "center",
   },
-});
+}));
 
 const Base = ({ title, descripton, children }) => {
   const classes = useStyles();
