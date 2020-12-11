@@ -1,14 +1,9 @@
-import React from "react";
-import Base from "../core/Base";
-import { isAuthenticated } from "../auth/helper";
-import { Link } from "react-router-dom";
 import {
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  Container,
   Grid,
   List,
   ListItem,
@@ -16,6 +11,10 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
+import React from "react";
+import { Link } from "react-router-dom";
+import { isAuthenticated } from "../auth/helper";
+import Base from "../core/Base";
 
 const useStyles = makeStyles({
   links: {
@@ -33,7 +32,7 @@ export const AdminDashboard = () => {
     <Base title="Admin Dashboard" descripton="this is admin dashboard 😎">
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12}>
-          <Card className="card" className={classes.profile_head}>
+          <Card className={classes.profile_head}>
             <CardHeader title="Profile Admin" />
             <CardContent>
               <Typography>Name: {name}</Typography>

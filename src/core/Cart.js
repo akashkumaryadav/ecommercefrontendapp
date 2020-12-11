@@ -6,7 +6,6 @@ import { loadCart } from "./helper/carthelper";
 import CartCard from "./CartCard";
 import { Grid, Typography } from "@material-ui/core";
 import PaymentBraintree from "./PaymentBraintree";
-import Store from "./paymentB.tsx";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -54,7 +53,7 @@ const Cart = () => {
           )}
         </Grid>
         <Grid item lg={4} md={6} sm={12} xs={12} className="col-6">
-          <PaymentBraintree products={products} setReload={reload} />
+          <PaymentBraintree products={products} setReload={setReload} />
         </Grid>
       </Grid>
     </Base>

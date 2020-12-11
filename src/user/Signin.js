@@ -1,11 +1,11 @@
+import { Button, Grid } from "@material-ui/core";
 import React, { useState } from "react";
-import Base from "../core/Base";
-import { FormGroup } from "./utils/FormGroup";
-import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
-import { signin, authenticate, isAuthenticated } from "../auth/helper/index";
-import { Button, Grid, makeStyles, TextField } from "@material-ui/core";
+import { toast } from "react-toastify";
+import { authenticate, isAuthenticated, signin } from "../auth/helper/index";
+import Base from "../core/Base";
 import Logo from "../core/Logo";
+import { FormGroup } from "./utils/FormGroup";
 import errorField from "./utils/formValidation";
 
 export const SignIn = () => {
@@ -42,7 +42,8 @@ export const SignIn = () => {
     signin({ email, password })
       .then((data) => {
         if (data.errors) {
-          setValues({ ...values, errors: data.errors });
+          console.log(data);
+          setValues({ ...values, errors: data.errors, didRedirect: false });
         } else {
           authenticate(data, () => {
             setValues({
@@ -58,7 +59,8 @@ export const SignIn = () => {
         }
       })
       .catch((err) => {
-        console.log("SIGN in failed on client side", err);
+        console.log("SIGN in failed on client side");
+        toast.error(values.errors);
       });
   };
   return (
@@ -87,7 +89,7 @@ export const SignIn = () => {
             <Button
               fullWidth
               variant="contained"
-              color="secondary"
+              color="primary"
               type="submit"
               className="btn btn-warning btn-block"
               onClick={handleOnClick}

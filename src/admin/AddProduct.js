@@ -1,10 +1,3 @@
-import React, { useState } from "react";
-import Base from "../core/Base";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { getAllCategories, createProduct } from "./helper/adminapicalls";
-import { isAuthenticated } from "../auth/helper";
-import { toast } from "react-toastify";
 import {
   Button,
   Card,
@@ -19,6 +12,12 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { isAuthenticated } from "../auth/helper";
+import Base from "../core/Base";
+import { createProduct, getAllCategories } from "./helper/adminapicalls";
 
 const useStyles = makeStyles({
   root: {
@@ -29,6 +28,7 @@ const useStyles = makeStyles({
     },
     marginLeft: "auto",
     marginRight: "auto",
+    marginTop: "2.5%",
     boxShadow: "10px 10px 20px 5px rgba(25,25,25,0.2)",
   },
   input: {
@@ -60,7 +60,7 @@ export const AddProduct = () => {
         })
       )
       .catch((err) => console.log(err));
-  }, []);
+  }, [values]);
 
   console.log(user.id);
 

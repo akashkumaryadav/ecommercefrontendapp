@@ -6,12 +6,13 @@ import { createOrder } from "./helper/orderhelper";
 import { isAuthenticated } from "../auth/helper";
 
 import DropIn from "braintree-web-drop-in-react";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
+import { toast } from "react-toastify";
 
 const PaymentBraintree = ({
   products,
   setReload = (f) => f,
-  reload = undefined,
+  reload = false,
 }) => {
   const [info, setInfo] = useState({
     loading: false,
@@ -53,14 +54,16 @@ const PaymentBraintree = ({
             <Button
               variant="contained"
               fullWidth
-              color="primary"
+              color="secondary"
               onClick={onPurchase}
             >
               Buy
             </Button>
           </div>
         ) : (
-          <h3>Please login or add something to cart</h3>
+          <Typography variant="h4">
+            Please login or add something to cart
+          </Typography>
         )}
       </div>
     );
@@ -84,11 +87,23 @@ const PaymentBraintree = ({
         .then((response) => {
           setInfo({ ...info, success: response.success, loading: false });
           console.log("PAYMENT SUCCESS");
+          const orderData = {
+            products: products,
+            transection_id: response.transaction.id,
+            amount: response.transaction.amount,
+          };
+          createOrder(userId, token, orderData);
+          toast.success("Payment Done Order Is on The Way");
           //TODO: empty the cart
+          cartEmpty(() => {
+            console.log("clearing the cart");
+          });
           //TODO: force reload
+          setReload(!reload);
         })
         .catch((error) => {
           setInfo({ loading: false, success: false });
+          console.log(error);
           console.log("PAYMENT FAILED");
         });
     });
@@ -104,7 +119,7 @@ const PaymentBraintree = ({
 
   return (
     <div>
-      <h3>Your bill is {getAmount()} $</h3>
+      <Typography variant="h5">Your bill is {getAmount()} $</Typography>
       {showbtdropIn()}
     </div>
   );

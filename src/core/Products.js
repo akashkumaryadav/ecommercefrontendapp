@@ -2,8 +2,6 @@ import { Button, ButtonGroup, Grid, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../admin/helper/adminapicalls";
 import CartCard from "./CartCard";
-import { addToCart } from "./helper/carthelper";
-import ProductCard from "./ProductCard";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -30,7 +28,9 @@ function Products() {
             </Grid>
           ))
         ) : (
-          <Typography variant="h5">No Products 😯 You Have to Wait</Typography>
+          <Typography variant="h5">
+            No Products <span role="image">😯</span> You Have to Wait
+          </Typography>
         )}
       </Grid>
       <Grid

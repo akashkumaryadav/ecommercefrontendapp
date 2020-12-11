@@ -5,17 +5,16 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardHeader,
   CardMedia,
   IconButton,
   makeStyles,
   Typography,
 } from "@material-ui/core";
 import { Favorite, Share, ShoppingBasket } from "@material-ui/icons";
-import { amber, green, blue, pink } from "@material-ui/core/colors";
+import { green, blue, pink } from "@material-ui/core/colors";
 import { gsap } from "gsap";
 import { API } from "../backend";
-import { addItemToCart, addToCart } from "./helper/carthelper";
+import { addItemToCart } from "./helper/carthelper";
 
 const useStyles = makeStyles({
   root: {
