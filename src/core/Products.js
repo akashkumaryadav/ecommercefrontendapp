@@ -6,18 +6,44 @@ import CartCard from "./CartCard";
 
 function Products() {
   const dispatch = useDispatch();
-  const { data, limit, categories } = useSelector((state) => state.products);
-  const { incrementLimit, decrementLimit } = productActions;
+  const {
+    data,
+    limit,
+    categories,
+    filteredData,
+    activeCategories,
+  } = useSelector((state) => state.products);
+
+  const { incrementLimit, decrementLimit, filterByCategory } = productActions;
+
   useEffect(() => {
     dispatch(fetchAllProducts(limit));
     dispatch(fetchAllCategories());
   }, [dispatch, limit]);
 
+  console.log(filteredData);
   return (
     <>
-      <section></section>
+      <section>
+        {categories.map((category) => (
+          <label key={category._id}>
+            <input
+              type="checkbox"
+              checked={activeCategories.includes(category._id)}
+              onChange={() => dispatch(filterByCategory(category._id))}
+            />
+            {category.name}
+          </label>
+        ))}
+      </section>
       <div className="container grid grid-cols-1 md:grid-cols-3 gap-4">
-        {data.length > 0 ? (
+        {filteredData.length > 0 ? (
+          filteredData.map((product) => (
+            <div key={product._id} lg={3} md={4} sm={4} xs={12}>
+              <CartCard product={product} />
+            </div>
+          ))
+        ) : data.length > 0 ? (
           data.map((product) => (
             <div key={product._id} lg={3} md={4} sm={4} xs={12}>
               <CartCard product={product} />
