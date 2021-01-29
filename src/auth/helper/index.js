@@ -15,6 +15,7 @@ export const signup = (user) => {
 };
 
 export const signin = (user) => {
+  console.log("inside signin function");
   return fetch(`${API}/signin`, {
     method: "POST",
     headers: {
@@ -24,13 +25,20 @@ export const signin = (user) => {
     body: JSON.stringify(user),
   })
     .then((response) => response.json())
-    .then((result) => result)
-    .catch((err) => console.log(err));
+    .then((result) => {
+      console.log(result);
+      return result;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
 };
 
 export const authenticate = (data, next) => {
   if (typeof window !== undefined) {
     localStorage.setItem("jwt", JSON.stringify(data));
+
     next();
   }
 };

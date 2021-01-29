@@ -41,8 +41,11 @@ export const SignIn = () => {
     event.preventDefault();
     signin({ email, password })
       .then((data) => {
+        console.log(data, "signin");
         if (data.errors) {
-          console.log(data);
+          if (data.errors.length === 1) {
+            toast.warn(data.errors[0]);
+          }
           setValues({ ...values, errors: data.errors, didRedirect: false });
         } else {
           authenticate(data, () => {
@@ -60,7 +63,6 @@ export const SignIn = () => {
       })
       .catch((err) => {
         console.log("SIGN in failed on client side");
-        toast.error(values.errors);
       });
   };
   return (

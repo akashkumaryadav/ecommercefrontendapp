@@ -1,61 +1,48 @@
-import { Button, ButtonGroup, Grid, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { getAllProducts } from "../admin/helper/adminapicalls";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProducts, fetchAllCategories } from "../redux/productActions";
+import { productActions } from "../redux/store";
 import CartCard from "./CartCard";
 
 function Products() {
-  const [products, setProducts] = useState([]);
-  const [limit, setLimit] = useState(8);
+  const dispatch = useDispatch();
+  const { data, limit, categories } = useSelector((state) => state.products);
+  const { incrementLimit, decrementLimit } = productActions;
   useEffect(() => {
-    getAllProducts(limit)
-      .then((products) => setProducts(products))
-      .catch((err) => console.log(err));
-  }, [limit]);
+    dispatch(fetchAllProducts(limit));
+    dispatch(fetchAllCategories());
+  }, [dispatch, limit]);
 
   return (
     <>
-      <Grid
-        container
-        spacing={2}
-        alignItems="center"
-        alignContent="center"
-        justify="space-evenly"
-      >
-        {products.length > 0 ? (
-          products.map((product) => (
-            <Grid item key={product._id} lg={3} md={4} sm={4} xs={12}>
+      <section></section>
+      <div className="container grid grid-cols-1 md:grid-cols-3 gap-4">
+        {data.length > 0 ? (
+          data.map((product) => (
+            <div key={product._id} lg={3} md={4} sm={4} xs={12}>
               <CartCard product={product} />
-            </Grid>
+            </div>
           ))
         ) : (
-          <Typography variant="h5">
+          <div>
             No Products <span role="image">😯</span> You Have to Wait
-          </Typography>
+          </div>
         )}
-      </Grid>
-      <Grid
-        container
-        justify="center"
-        style={{ marginTop: 20, paddingBottom: 20 }}
-      >
-        <ButtonGroup>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => setLimit(limit + 4)}
-          >
-            More Products
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={limit > 4 ? () => setLimit(limit - 4) : setLimit(8)}
-            disabled={limit === 8}
-          >
-            Show Less
-          </Button>
-        </ButtonGroup>
-      </Grid>
+      </div>
+      <div className="p-5 gird grid-cols-2 w-full mx-auto justify-center items-center">
+        <button
+          className="py-2 mx-auto px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+          onClick={() => dispatch(incrementLimit())}
+        >
+          More Products
+        </button>
+        <button
+          className="py-2 mx-auto px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+          onClick={limit > 4 ? () => dispatch(decrementLimit()) : ""}
+        >
+          Show Less
+        </button>
+      </div>
     </>
   );
 }

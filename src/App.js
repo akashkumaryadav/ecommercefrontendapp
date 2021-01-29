@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import darktheme from "./themes/darktheme";
 import lighttheme from "./themes/lighttheme";
+import "./index.css";
 
 export default function App() {
   return (
