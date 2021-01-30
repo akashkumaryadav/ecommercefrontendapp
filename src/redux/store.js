@@ -24,24 +24,25 @@ const productSlice = createSlice({
       state.data.length = 0;
       state.data.push(...action.payload.data);
     },
-    filterAll(state, action) {
-      state.filteredData.length = 0;
-      state.filteredData.push(state.data);
-    },
     filterByCategory(state, action) {
-      // filter by category
-      if (state.activeCategories.includes(action.payload.category)) {
+      // filter by
+      if (state.activeCategories.includes(action.payload)) {
         state.activeCategories.splice(
-          state.activeCategories.indexOf(action.payload.category),
+          state.activeCategories.indexOf(action.payload),
           1
         );
       } else {
-        state.activeCategories.push(action.payload.category);
+        state.activeCategories.push(action.payload);
       }
-      const fdata = state.data.filter((item) =>
-        state.activeCategories.includes(item.category)
-      );
-      state.filteredData.push(...fdata);
+      if (state.activeCategories.length > 0) {
+        const fdata = state.data.filter((item) =>
+          state.activeCategories.includes(item.category)
+        );
+        state.filteredData.length = 0;
+        state.filteredData.push(...fdata);
+      } else {
+        state.filteredData.length = 0;
+      }
     },
     fetchAllCategorySuccess(state, action) {
       state.categories.length = 0;

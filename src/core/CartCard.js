@@ -61,21 +61,24 @@ const CartCard = ({
     );
   };
   return (
-    <Card className="card text-white bg-dark border border-info ">
-      <CardHeader title={cartTitle} />
-      <CardContent>
-        {getARedirect(redirect)}
-        <ImageHelper product={product} />
-        <p className="lead bg-success font-weight-normal text-wrap">
-          {cartDescrption}
-        </p>
-        <p className="btn btn-success rounded  btn-sm px-4">$ {cartPrice}</p>
-        <div className="row">
-          <div className="col-12">{showAddToCart(addtoCart)}</div>
-          <div className="col-12">{showRemoveFromCart(removeFromCart)}</div>
+    <>
+      <div class="rounded overflow-hidden shadow-lg h-full">
+        <img
+          class="h-44 w-full object-cover object-bottom"
+          src={ImageHelper(product)}
+          alt="Mountain"
+        />
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">{cartTitle}</div>
+          <p class="text-gray-700 text-base">{cartDescrption}</p>
         </div>
-      </CardContent>
-    </Card>
+        <div class="px-6 pt-4 pb-2">
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+            ${cartPrice}
+          </span>
+        </div>
+      </div>
+    </>
   );
 };
 
