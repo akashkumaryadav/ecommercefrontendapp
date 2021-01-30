@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
-import { signout } from "../auth/helper/index";
+import { isAuthenticated, signout } from "../auth/helper/index";
 
 const Menu = () => {
   const [profileMenu, setProfleMenu] = useState(false);
@@ -66,21 +66,25 @@ const Menu = () => {
                 {/* menu */}
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
-                    <NavLink
-                      className="text-white px-3 py-2 rounded-md text-sm font-medium"
-                      to="/user/dashboard"
-                      activeClassName="bg-gray-900"
-                    >
-                      DashBoard
-                    </NavLink>
+                    {isAuthenticated() && (
+                      <NavLink
+                        className="text-white px-3 py-2 rounded-md text-sm font-medium"
+                        to="/user/dashboard"
+                        activeClassName="bg-gray-900"
+                      >
+                        DashBoard
+                      </NavLink>
+                    )}
 
-                    <NavLink
-                      to="/admin/dashboard"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                      activeClassName="bg-gray-900"
-                    >
-                      Admin DashBoard
-                    </NavLink>
+                    {isAuthenticated() && isAuthenticated().user.role === 1 && (
+                      <NavLink
+                        to="/admin/dashboard"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        activeClassName="bg-gray-900"
+                      >
+                        Admin DashBoard
+                      </NavLink>
+                    )}
                     <NavLink
                       to="/home"
                       className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -112,11 +116,15 @@ const Menu = () => {
                       aria-haspopup="true"
                     >
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://avatars.githubusercontent.com/u/49105309?s=460&u=17e3a305920b300802a671a1b3dd9e149996f710&v=4"
-                        alt=""
-                      />
+                      {isAuthenticated() ? (
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src="https://avatars.githubusercontent.com/u/49105309?s=460&u=17e3a305920b300802a671a1b3dd9e149996f710&v=4"
+                          alt=""
+                        />
+                      ) : (
+                        <i className="text-white text-2xl fas fa-cog"></i>
+                      )}
                     </button>
                   </div>
                   {/* profieMenu */}
@@ -128,45 +136,53 @@ const Menu = () => {
                     aria-orientation="vertical"
                     aria-labelledby="user-menu"
                   >
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                    >
-                      Your Profile
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                    >
-                      Settings
-                    </a>
-                    <NavLink
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      to="/signin"
-                      role="menuitem"
-                    >
-                      Signin
-                    </NavLink>
-                    <NavLink
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      to="/signup"
-                      role="menuitem"
-                    >
-                      Signup
-                    </NavLink>
-                    <button
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                      onClick={() =>
-                        signout(() => {
-                          toast.error("signed out");
-                        })
-                      }
-                    >
-                      Sign out
-                    </button>
+                    {!isAuthenticated() && (
+                      <span>
+                        <NavLink
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          to="/signin"
+                          role="menuitem"
+                        >
+                          Signin
+                        </NavLink>
+                        <NavLink
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          to="/signup"
+                          role="menuitem"
+                        >
+                          Signup
+                        </NavLink>
+                      </span>
+                    )}
+                    {isAuthenticated() && (
+                      <span>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          role="menuitem"
+                        >
+                          Your Profile
+                        </a>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          role="menuitem"
+                        >
+                          Settings
+                        </a>
+                        <button
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          role="menuitem"
+                          onClick={() =>
+                            signout(() => {
+                              toast.error("signed out");
+                            })
+                          }
+                        >
+                          Sign out
+                        </button>
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

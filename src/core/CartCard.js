@@ -62,20 +62,20 @@ const CartCard = ({
   };
   return (
     <>
-      <div class="rounded  overflow-hidden shadow-lg h-96">
-        <ImageHelper product={product} />
-
+      <div class="rounded overflow-hidden shadow-lg h-full">
+        <img
+          class="h-44 w-full object-cover object-bottom"
+          src={ImageHelper(product)}
+          alt="Mountain"
+        />
         <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2">{cartTitle}</div>
           <p class="text-gray-700 text-base">{cartDescrption}</p>
         </div>
         <div class="px-6 pt-4 pb-2">
           <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-            $ {cartPrice}
+            ${cartPrice}
           </span>
-          <button className="bg-red-500 text-white p-2 rounded-md">
-            Add To Cart
-          </button>
         </div>
       </div>
     </>

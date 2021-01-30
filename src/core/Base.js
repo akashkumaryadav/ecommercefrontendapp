@@ -4,7 +4,7 @@ import Menu from "./Menu";
 
 const Base = ({ title, descripton, children }) => {
   return (
-    <main className="box-border h-screen">
+    <main className="box-border h-screen  bg-gray-100">
       <Menu />
       <div>
         <div className="container mx-auto">
