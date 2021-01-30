@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Routes() {
-  const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <div>
       <Router>
         <Switch>
           <Route path="/" exact component={Home}></Route>
+          <Route path="/home" exact component={Home}></Route>
           <Route path="/signin" exact component={SignIn} />
           <Route path="/signup" exact component={SignUp} />
           <AdminRoutes
