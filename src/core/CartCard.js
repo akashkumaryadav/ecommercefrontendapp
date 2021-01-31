@@ -62,20 +62,22 @@ const CartCard = ({
   };
   return (
     <>
-      <div class="rounded overflow-hidden shadow-lg h-full">
+      <div className="rounded overflow-hidden shadow-lg neumo">
         <img
-          class="h-44 w-full object-cover object-bottom"
+          className="h-44 w-full object-cover object-bottom"
           src={ImageHelper(product)}
           alt="Mountain"
         />
-        <div class="px-6 py-4">
-          <div class="font-bold text-xl mb-2">{cartTitle}</div>
-          <p class="text-gray-700 text-base">{cartDescrption}</p>
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl mb-2">{cartTitle}</div>
+          <p className="text-gray-700 text-base">{cartDescrption}</p>
         </div>
-        <div class="px-6 pt-4 pb-2">
-          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+        <div className="px-6 pt-4 pb-2 space-x-4">
+          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 neumoinset">
             ${cartPrice}
           </span>
+          {showAddToCart(addToCart)}
+          {showRemoveFromCart(removeFromCart)}
         </div>
       </div>
     </>

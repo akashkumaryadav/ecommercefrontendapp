@@ -1,5 +1,5 @@
 import { makeStyles, TextField } from "@material-ui/core";
-import React from "react";
+import React, { Fragment } from "react";
 
 const useStyles = makeStyles({
   inputBox: {
@@ -12,26 +12,26 @@ export const FormGroup = ({
   label,
   value,
   onChange,
-  error,
+  errors,
+  placeholder,
   required,
 }) => {
   const classes = useStyles();
   return (
-    <div>
-      <TextField
-        required={required}
-        error={error}
-        helperText={error && `please provide valid ${label}`}
-        fullWidth
-        variant="outlined"
-        name={`${label.toLowerCase()}`}
+    <Fragment>
+      <input
         type={type}
-        className={classes.inputBox}
-        value={value}
+        name={label.toLowerCase()}
         onChange={onChange}
-        label={label}
-        color="secondary"
+        className="px-2 w-full text-2xl py-5 border-b-2"
+        placeholder={placeholder}
+        required
       />
-    </div>
+      {errors.length != 0 && (
+        <p className="text-sm text-red-500 opacity-80">
+          {errors.filter((er) => er.match(label))}{" "}
+        </p>
+      )}
+    </Fragment>
   );
 };

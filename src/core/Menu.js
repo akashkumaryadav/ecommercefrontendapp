@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import { isAuthenticated, signout } from "../auth/helper/index";
+import NeumoNavLink from "./menuComponents/NeumoNavLinks";
 
 const Menu = () => {
   const [profileMenu, setProfleMenu] = useState(false);
@@ -10,7 +11,7 @@ const Menu = () => {
   return (
     <Fragment>
       <span>
-        <nav className="bg-gray-800 fixed w-full z-10 top-0">
+        <nav className="bg-white fixed w-full z-10 top-0">
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -56,7 +57,7 @@ const Menu = () => {
                 </button>
               </div>
               {/* brand */}
-              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start text-2xl font-bold text-white">
+              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start text-2xl font-bold text-gray-800">
                 <div className="flex-shrink-0 flex items-center">
                   <span className="block lg:hidden h-8 w-auto">DC</span>
                   <span className="hidden lg:block h-8 w-auto" alt="Workflow">
@@ -67,65 +68,66 @@ const Menu = () => {
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {isAuthenticated() && (
-                      <NavLink
-                        className="text-white px-3 py-2 rounded-md text-sm font-medium"
-                        to="/user/dashboard"
-                        activeClassName="bg-gray-900"
-                      >
-                        DashBoard
-                      </NavLink>
+                      <NeumoNavLink to="/user/dashboard" label="dashboard" />
                     )}
 
                     {isAuthenticated() && isAuthenticated().user.role === 1 && (
-                      <NavLink
+                      <NeumoNavLink
                         to="/admin/dashboard"
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                        activeClassName="bg-gray-900"
-                      >
-                        Admin DashBoard
-                      </NavLink>
+                        label="Admin DashBoard"
+                      />
                     )}
-                    <NavLink
-                      to="/home"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                      activeClassName="bg-gray-900"
-                    >
-                      Products
-                    </NavLink>
+                    <NeumoNavLink to="/home" label="prdoucts" />
                   </div>
                 </div>
               </div>
-              {/* notification */}
+              {/* cart */}
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                  <span className="sr-only bg-white">View notifications</span>
+                <NavLink to="/user/cart" className="p-1 rounded-full">
+                  <span className="sr-only bg-white">Cart</span>
                   <span className="bg-red-500 text-white text-center absolute top-2 rounded-full w-5 h-5 pb-6">
                     <p>2</p>
                   </span>
-                  <i className="block text-xl text-white fas fa-shopping-cart"></i>
-                </button>
-                <span className="sr-only bg-white">View notifications</span>
+                  <i className="block text-xl text-black shadow-lg fas fa-shopping-cart"></i>
+                </NavLink>
 
                 {/* profileMenu trigger */}
                 <div className="ml-3 relative">
                   <div>
-                    <button
-                      className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                      id="user-menu"
-                      onClick={() => setProfleMenu(!profileMenu)}
-                      aria-haspopup="true"
-                    >
-                      <span className="sr-only">Open user menu</span>
-                      {isAuthenticated() ? (
+                    {isAuthenticated() && (
+                      <button
+                        className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                        id="user-menu"
+                        onClick={() => setProfleMenu(!profileMenu)}
+                        aria-haspopup="true"
+                      >
+                        <span className="sr-only">Open user menu</span>
+
                         <img
                           className="h-8 w-8 rounded-full"
                           src="https://avatars.githubusercontent.com/u/49105309?s=460&u=17e3a305920b300802a671a1b3dd9e149996f710&v=4"
                           alt=""
                         />
-                      ) : (
-                        <i className="text-white text-2xl fas fa-cog"></i>
-                      )}
-                    </button>
+                      </button>
+                    )}
+                    {!isAuthenticated() && (
+                      <span className="hidden md:flex space-x-2 ">
+                        <NavLink
+                          className="block px-4 py-2 text-sm text-black bg-white rounded-lg hover:bg-gray-300 shadow-md"
+                          to="/signin"
+                          role="menuitem"
+                        >
+                          Signin
+                        </NavLink>
+                        <NavLink
+                          className="block px-4 py-2 text-sm text-black bg-white rounded-lg hover:bg-gray-100 shadow-md"
+                          to="/signup"
+                          role="menuitem"
+                        >
+                          Signup
+                        </NavLink>
+                      </span>
+                    )}
                   </div>
                   {/* profieMenu */}
                   <div

@@ -1,8 +1,26 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-//ACTIONS and ACTION TYPES
+// cart reducer
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: {
+    cartcount: 0,
+    data: [],
+  },
+  reducers: {
+    addToCart(state, action) {
+      //TODO:
+    },
+    removeFromCart(state, action) {
+      //TODO:
+    },
+    clearCart(state, action) {
+      //TODO
+    },
+  },
+});
 
-// Reducers
+// Reducer product
 const productSlice = createSlice({
   name: "products",
   initialState: {
