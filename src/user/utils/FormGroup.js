@@ -1,37 +1,30 @@
-import { makeStyles, TextField } from "@material-ui/core";
-import React from "react";
-
-const useStyles = makeStyles({
-  inputBox: {
-    marginBottom: 10,
-  },
-});
+import React, { Fragment } from "react";
 
 export const FormGroup = ({
   type,
   label,
   value,
   onChange,
-  error,
+  errors,
+  placeholder,
   required,
 }) => {
-  const classes = useStyles();
+  console.log(errors);
   return (
-    <div>
-      <TextField
-        required={required}
-        error={error}
-        helperText={error && `please provide valid ${label}`}
-        fullWidth
-        variant="outlined"
-        name={`${label.toLowerCase()}`}
+    <Fragment>
+      <input
         type={type}
-        className={classes.inputBox}
-        value={value}
+        name={label.toLowerCase()}
         onChange={onChange}
-        label={label}
-        color="secondary"
+        className="px-2 w-full text-2xl py-5 border-b-2 text-black"
+        placeholder={placeholder}
+        required
       />
-    </div>
+      {errors.length !== 0 && (
+        <p className="text-sm text-red-400">
+          {errors.filter((er) => er.match(label))}
+        </p>
+      )}
+    </Fragment>
   );
 };

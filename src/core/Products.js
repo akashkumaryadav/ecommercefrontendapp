@@ -21,33 +21,34 @@ function Products() {
     dispatch(fetchAllCategories());
   }, [dispatch, limit]);
 
-  console.log(filteredData);
   return (
     <>
       <div
-        className="grid grid-rows-4 p-5   md:grid-cols-8 md:pb-20 gap-3 "
+        className="grid grid-rows-4   md:grid-cols-9  gap-3 "
         style={{ height: "100vh" }}
       >
-        <section className="grid grid-cols-2 lg:h-60 mt-14  md:row-start-2 md:row-end-3  md:shadow-xl p-2 rounded-lg">
-          <h1 className="col-span-full font-bold text-3xl border-b-2 mb-1 ">
-            Filters
-          </h1>
-          {categories.map((category) => (
-            <span className="lg:col-span-full " key={category._id}>
-              <input
-                name={category.name}
-                className="mx-2"
-                type="checkbox"
-                checked={activeCategories.includes(category._id)}
-                onChange={() => dispatch(filterByCategory(category._id))}
-              />
-              <label for={category.name}>{category.name}</label>
-            </span>
-          ))}
+        <section className="grid grid-cols-1 lg:h-60 mt-14 md:col-start-1 md:col-end-3  md:row-start-2 md:row-end-3  p-5">
+          <span>
+            <h1 className="col-span-full font-bold text-3xl border-b-2 mb-1 ">
+              Filters
+            </h1>
+            {categories.map((category) => (
+              <span className="lg:col-span-full " key={category._id}>
+                <input
+                  name={category.name}
+                  className="mx-2"
+                  type="checkbox"
+                  checked={activeCategories.includes(category._id)}
+                  onChange={() => dispatch(filterByCategory(category._id))}
+                />
+                <label htmlFor={category.name}>{category.name}</label>
+              </span>
+            ))}
+          </span>
         </section>
 
-        <div className="scrollbar row-start-2 row-end-5 md:row-start-1 p-5  md:col-start-2 md:col-end-9  md:mb-10 mt-14  ">
-          <div className="grid grid-cols-1 h-full md:grid-cols-3 lg:grid-cols-4 gap-x-3 gap-y-2   overflow-x-auto">
+        <div className="scrollbar row-start-2 row-end-5 md:row-start-1 p-5  md:col-start-3 md:col-end-10  md:mb-10 mt-14  ">
+          <div className="grid grid-cols-1 gap-y-4 h-full md:grid-cols-2 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-28 md:px-10   overflow-x-auto">
             {filteredData.length > 0 ? (
               filteredData.map((product) => (
                 <div key={product._id}>

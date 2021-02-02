@@ -38,6 +38,7 @@ export const SignIn = () => {
   };
 
   const handleOnClick = (event) => {
+    console.log(errors);
     event.preventDefault();
     signin({ email, password })
       .then((data) => {
@@ -67,40 +68,40 @@ export const SignIn = () => {
   };
   return (
     <Base>
-      <Logo />
       {performRedirect()}
-      <Grid container justify="space-around" spacing={2}>
-        <Grid item lg={8} md={8} xs={12} sm={12}>
-          <form>
+      <div className="h-screen pt-20 grid grid-cols-1 md:grid-rows-6 justify-center">
+        <form className="md:row-start-2 flex flex-col justify-center align-middle items-center px-2  w-full">
+          {errors.length > 0 && (
+            <p className="border-red-500 px-3 py-2 rounded-md w-1/2 text-white">
+              {errors.filter((er) => er.match("user"))}
+            </p>
+          )}
+          <span className="md:w-1/2 ">
             <FormGroup
-              required
-              error={errors && "email" === errorField("email", errors)}
-              type="email"
-              label="Email"
+              type="text"
               onChange={handleOnChange}
-              value={email}
+              label="email"
+              errors={errors}
+              placeholder="please enter email"
             />
+          </span>
+          <span className="md:w-1/2 ">
             <FormGroup
-              required
-              error={errors && "password" === errorField("password", errors)}
               type="password"
-              label="Password"
-              value={password}
               onChange={handleOnChange}
+              label="password"
+              errors={errors}
+              placeholder="please enter password"
             />
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              type="submit"
-              className="btn btn-warning btn-block"
-              onClick={handleOnClick}
-            >
-              Login
-            </Button>
-          </form>
-        </Grid>
-      </Grid>
+          </span>
+          <button
+            onClick={handleOnClick}
+            className="rounded-lg w-full my-4  md:w-1/2 bg-gray-800 text-white  p-2"
+          >
+            Signin
+          </button>
+        </form>
+      </div>
     </Base>
   );
 };
