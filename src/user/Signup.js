@@ -59,63 +59,61 @@ export const SignUp = () => {
 
   return (
     <Base>
-      <Logo />
       {performRedirect()}
-      <Grid container justify="center" spacing={2}>
-        <Grid item lg={10} md={10} sm={12}>
-          <form>
-            <Card>
-              <CardContent>
-                <FormGroup
-                  required
-                  error={errors && "name" === errorField("name", errors)}
-                  type="text"
-                  label="Name"
-                  value={name}
-                  onChange={handleOnChange}
-                />
-                <FormGroup
-                  error={
-                    errors && "lastname" === errorField("lastname", errors)
-                  }
-                  type="text"
-                  label="Lastname"
-                  value={lastname}
-                  onChange={handleOnChange}
-                />
-                <FormGroup
-                  required
-                  error={errors && "email" === errorField("email", errors)}
-                  type="email"
-                  label="Email"
-                  value={email}
-                  onChange={handleOnChange}
-                />
-                <FormGroup
-                  required
-                  error={
-                    errors && "password" === errorField("password", errors)
-                  }
-                  type="password"
-                  label="Password"
-                  value={password}
-                  onChange={handleOnChange}
-                />
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  className="btn btn-warning btn-block"
-                  onClick={handleOnSubmit}
-                >
-                  submit
-                </Button>
-              </CardContent>
-            </Card>
-          </form>
-        </Grid>
-      </Grid>
+      <div className="p-4 h-screen pt-20 grid grid-cols-1 md:grid-rows-6 justify-center">
+        <form className="md:row-start-2 flex flex-col justify-center align-middle items-center px-2  w-full">
+          <span className="md:w-1/2">
+            <FormGroup
+              required
+              errors={errors}
+              type="text"
+              label="name"
+              placeholder="name"
+              value={name}
+              onChange={handleOnChange}
+            />
+          </span>
+          <span className="md:w-1/2">
+            <FormGroup
+              errors={errors}
+              type="text"
+              label="lastname"
+              placeholder="lastname"
+              value={lastname}
+              onChange={handleOnChange}
+            />
+          </span>
+          <span className="md:w-1/2">
+            <FormGroup
+              required
+              errors={errors}
+              type="email"
+              label="email"
+              placeholder="email"
+              value={email}
+              onChange={handleOnChange}
+            />
+          </span>
+          <span className="md:w-1/2">
+            <FormGroup
+              required
+              errors={errors}
+              type="password"
+              label="password"
+              placeholder="password"
+              value={password}
+              onChange={handleOnChange}
+            />
+          </span>
+          <button
+            fullWidth
+            className="w-full md:w-1/2 mt-4 bg-gray-800 text-white py-2"
+            onClick={handleOnSubmit}
+          >
+            submit
+          </button>
+        </form>
+      </div>
     </Base>
   );
 };

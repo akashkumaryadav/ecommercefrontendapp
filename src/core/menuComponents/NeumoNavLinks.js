@@ -5,8 +5,8 @@ const NeumoNavLink = ({ to, label }) => {
   return (
     <NavLink
       to={to}
-      className="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium shadow-lg"
-      activeClassName="bg-gray-900 text-white"
+      className="text-black px-3 py-2 rounded-2xl text-sm inset-5 shadow-xl font-medium"
+      activeClassName=" text-gray-800 neumoinset"
     >
       {label}
     </NavLink>

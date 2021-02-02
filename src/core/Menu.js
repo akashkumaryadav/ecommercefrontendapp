@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import { isAuthenticated, signout } from "../auth/helper/index";
@@ -7,6 +8,7 @@ import NeumoNavLink from "./menuComponents/NeumoNavLinks";
 const Menu = () => {
   const [profileMenu, setProfleMenu] = useState(false);
   const [menu, setMenu] = useState(false);
+  const { cartcount } = useSelector((state) => state.carts);
 
   return (
     <Fragment>
@@ -83,12 +85,17 @@ const Menu = () => {
               </div>
               {/* cart */}
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <NavLink to="/user/cart" className="p-1 rounded-full">
-                  <span className="sr-only bg-white">Cart</span>
-                  <span className="bg-red-500 text-white text-center absolute top-2 rounded-full w-5 h-5 pb-6">
-                    <p>2</p>
+                <NavLink
+                  to="/user/cart"
+                  className="p-1  w-8 shadow-lg rounded-full border "
+                  activeClassName="neumoinset"
+                >
+                  <span className="flex">
+                    <p className="absolute ml-4 top-2 z-10 text-white rounded-full w-4 h-4 text-center pb-5 bg-black font-bold">
+                      {cartcount}
+                    </p>
+                    <i className="block text-xl text-black  fas fa-shopping-cart"></i>
                   </span>
-                  <i className="block text-xl text-black shadow-lg fas fa-shopping-cart"></i>
                 </NavLink>
 
                 {/* profileMenu trigger */}
@@ -113,14 +120,16 @@ const Menu = () => {
                     {!isAuthenticated() && (
                       <span className="hidden md:flex space-x-2 ">
                         <NavLink
-                          className="block px-4 py-2 text-sm text-black bg-white rounded-lg hover:bg-gray-300 shadow-md"
+                          className="block px-4 py-2 text-sm text-black  shadow-md"
                           to="/signin"
                           role="menuitem"
+                          activeClassName="neumoinset"
                         >
                           Signin
                         </NavLink>
                         <NavLink
-                          className="block px-4 py-2 text-sm text-black bg-white rounded-lg hover:bg-gray-100 shadow-md"
+                          className="block px-4 py-2 text-sm text-black shadow-md rounded-xl"
+                          activeClassName="neumoinset"
                           to="/signup"
                           role="menuitem"
                         >

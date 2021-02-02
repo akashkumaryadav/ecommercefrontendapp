@@ -51,19 +51,15 @@ const PaymentBraintree = ({
               options={{ authorization: info.clientToken }}
               onInstance={(instance) => (info.instance = instance)}
             />
-            <Button
-              variant="contained"
-              fullWidth
-              color="secondary"
+            <button
+              className="w-full shadow-xl border px-3 py-2 rounded-lg font-bold hover:bg-yellow-100"
               onClick={onPurchase}
             >
               Buy
-            </Button>
+            </button>
           </div>
         ) : (
-          <Typography variant="h4">
-            Please login or add something to cart
-          </Typography>
+          <h4 className="text-2xl">Please login or add something to cart</h4>
         )}
       </div>
     );
@@ -108,18 +104,17 @@ const PaymentBraintree = ({
         });
     });
   };
-  console.log(info);
   const getAmount = () => {
     let amount = 0;
     products.map((p) => {
-      amount = amount + p.price;
+      amount = amount + p.price * p.quantity;
     });
     return amount;
   };
 
   return (
     <div>
-      <Typography variant="h5">Your bill is {getAmount()} $</Typography>
+      <h1 className="text-xl font-semibold">Your bill is {getAmount()} $</h1>
       {showbtdropIn()}
     </div>
   );

@@ -21,7 +21,6 @@ function Products() {
     dispatch(fetchAllCategories());
   }, [dispatch, limit]);
 
-  console.log(filteredData);
   return (
     <>
       <div
@@ -49,7 +48,7 @@ function Products() {
         </section>
 
         <div className="scrollbar row-start-2 row-end-5 md:row-start-1 p-5  md:col-start-3 md:col-end-10  md:mb-10 mt-14  ">
-          <div className="grid grid-cols-1 h-full md:grid-cols-2 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-28 md:px-10   overflow-x-auto">
+          <div className="grid grid-cols-1 gap-y-4 h-full md:grid-cols-2 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-28 md:px-10   overflow-x-auto">
             {filteredData.length > 0 ? (
               filteredData.map((product) => (
                 <div key={product._id}>
