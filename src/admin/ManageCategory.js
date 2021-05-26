@@ -20,6 +20,8 @@ import {
 import { Delete, Update } from "@material-ui/icons";
 import { pink, grey } from "@material-ui/core/colors";
 import { isAuthenticated } from "../auth/helper";
+import Modal from "../core/helper/Modal";
+import { AddCategory } from "./AddCategory";
 
 const useStyles = makeStyles({
   tableHead: {
@@ -35,6 +37,7 @@ const useStyles = makeStyles({
 export const ManageCategory = () => {
   const [categories, setCategories] = useState(null);
   const [update, setUpdate] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
   const { user, auth_token } = isAuthenticated();
   const classes = useStyles();
 
@@ -43,7 +46,6 @@ export const ManageCategory = () => {
       .then((categories) => setCategories(categories))
       .catch((err) => console.log(err));
   }, [update]);
-
   const handleOnDelete = async (id) => {
     const data = await removeCategory(id, user.id, auth_token);
     if (data.error) {
@@ -73,7 +75,18 @@ export const ManageCategory = () => {
   };
 
   return (
-    <Base title="Manage Categories">
+    <div>
+      <button
+        className="float-right m-3 px-2 py-4"
+        onClick={() => setShowAddModal(!showAddModal)}
+      >
+        Add New Category <i class="fas fa-plus"></i>
+      </button>
+      <Modal show={showAddModal} onClose={setShowAddModal}>
+        <div>
+          <AddCategory />
+        </div>
+      </Modal>
       <TableContainer>
         <Table>
           <TableHead className={classes.tableHead}>
@@ -132,6 +145,6 @@ export const ManageCategory = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Base>
+    </div>
   );
 };

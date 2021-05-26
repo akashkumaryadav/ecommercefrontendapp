@@ -5,24 +5,31 @@ import { Link } from "react-router-dom";
 import { isAuthenticated } from "../auth/helper";
 
 import { getAllProducts, deleteProduct } from "./helper/adminapicalls";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProducts } from "../redux/productActions";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
 
+  const dispatch = useDispatch();
+
+  const { data } = useSelector((state) => state.products);
+
   const { user, token } = isAuthenticated();
 
-  const preload = () => {
-    getAllProducts().then((data) => {
-      if (data.errors) {
-        console.log(data.errors);
-      } else {
-        setProducts(data);
-      }
-    });
-  };
+  // const preload = () => {
+  //   getAllProducts().then((data) => {
+  //     if (data.errors) {
+  //       console.log(data.errors);
+  //     } else {
+  //       setProducts(data);
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
-    preload();
+    // preload();
+    dispatch(fetchAllProducts(100));
   }, []);
 
   const deleteThisProduct = (productId) => {
@@ -30,51 +37,47 @@ const ManageProducts = () => {
       if (data.errors) {
         console.log(data.errors);
       } else {
-        preload();
+        // preload();
       }
     });
   };
 
   return (
-    <Base title="Welcome admin" description="Manage products here">
-      <h2 className="mb-4">All products:</h2>
-      <Link className="btn btn-info" to={`/admin/dashboard`}>
-        <span className="">Admin Home</span>
-      </Link>
-      <div className="row">
-        <div className="col-12">
-          <h2 className="text-center text-white my-3">Total 3 products</h2>
+    <>
+      <div className="flex flex-col h-5/6 scrollbar overflow-x-auto">
+        <h2 className="text-center text-black my-3">
+          In Inventory {data.length} Products
+        </h2>
 
-          {products.map((product, index) => {
-            return (
-              <div key={index} className="row text-center mb-2 ">
-                <div className="col-4">
-                  <h3 className="text-white text-left">{product.name}</h3>
-                </div>
-                <div className="col-4">
-                  <Link
-                    className="btn btn-success"
-                    to={`/admin/product/update/${product._id}`}
-                  >
-                    <span className="">Update</span>
-                  </Link>
-                </div>
-                <div className="col-4">
-                  <button
-                    onClick={() => {
-                      deleteThisProduct(product._id);
-                    }}
-                    className="btn btn-danger"
-                  >
-                    Delete
-                  </button>
-                </div>
+        {data.map((product, index) => {
+          return (
+            <div key={index} className=" ">
+              <div className="col-4">
+                <h3 className="text-black text-left">{product.name}</h3>
               </div>
-            );
-          })}
-        </div>
+              <div className="col-4">
+                <Link
+                  className="btn btn-success"
+                  to={`/admin/product/update/${product._id}`}
+                >
+                  <span className="">Update</span>
+                </Link>
+              </div>
+              <div className="col-4">
+                <button
+                  onClick={() => {
+                    deleteThisProduct(product._id);
+                  }}
+                  className="btn btn-danger"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
-    </Base>
+    </>
   );
 };
 

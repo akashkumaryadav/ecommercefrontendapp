@@ -41,7 +41,7 @@ const CartCard = ({ product, setReload = (f) => f, reload = undefined }) => {
         ) : (
           <button
             onClick={() => dispatch(removeFromCart(product._id))}
-            className="border-2 px-4 py-2 rounded-full shadow-md text-gray-800"
+            className="border-2 px-4 py-2 rounded-full shadow-md text-gray-800 neumoinset"
           >
             <i className="fas fa-trash text-red-800"></i>
           </button>
@@ -52,7 +52,7 @@ const CartCard = ({ product, setReload = (f) => f, reload = undefined }) => {
 
   return (
     <>
-      <div className="rounded-xl overflow-hidden shadow-md  border ">
+      <div className="rounded-xl overflow-hidden shadow-md  border-2 border-gray-600 ">
         <img
           className="h-44 w-full object-cover object-bottom"
           src={ImageHelper(product)}

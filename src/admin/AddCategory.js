@@ -70,53 +70,51 @@ export const AddCategory = () => {
   };
 
   return (
-    <Base title="🎉 🆕 ">
-      <Grid container alignContent="center" justify="center">
-        <Grid item lg={12} md={10} sm={10} xs={12}>
-          <Card className={classes.root}>
-            <CardHeader title="Add Category" style={{ textAlign: "center" }} />
-            <CardContent>
-              <Typography align="center">Fill Out The Details</Typography>
-              <form>
-                <FormGroup>
-                  <TextField
-                    required
-                    helperText="provide the category name "
-                    label="name"
-                    type="text"
-                    className={classes.input}
-                    color="secondary"
-                    placeholder="For eg.Summer,Winter"
-                    name="name"
-                    value={name}
-                    onChange={handleOnChange}
-                  />
-                </FormGroup>
+    <Grid container alignContent="center" justify="center">
+      <Grid item lg={12} md={10} sm={10} xs={12}>
+        <Card className={classes.root}>
+          <CardHeader title="Add Category" style={{ textAlign: "center" }} />
+          <CardContent>
+            <Typography align="center">Fill Out The Details</Typography>
+            <form>
+              <FormGroup>
+                <TextField
+                  required
+                  helperText="provide the category name "
+                  label="name"
+                  type="text"
+                  className={classes.input}
+                  color="secondary"
+                  placeholder="For eg.Summer,Winter"
+                  name="name"
+                  value={name}
+                  onChange={handleOnChange}
+                />
+              </FormGroup>
+              <Button
+                className={classes.button}
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className="btn btn-success rounded-pill m-2"
+                onClick={handleOnSubmit}
+              >
+                create Category
+              </Button>
+              <Link to="/admin/dashboard" style={{ textDecoration: "none" }}>
                 <Button
                   className={classes.button}
                   fullWidth
-                  variant="contained"
-                  color="secondary"
-                  className="btn btn-success rounded-pill m-2"
-                  onClick={handleOnSubmit}
+                  color="primary"
+                  variant="outlined"
                 >
-                  create Category
+                  Go Back
                 </Button>
-                <Link to="/admin/dashboard" style={{ textDecoration: "none" }}>
-                  <Button
-                    className={classes.button}
-                    fullWidth
-                    color="primary"
-                    variant="outlined"
-                  >
-                    Go Back
-                  </Button>
-                </Link>
-              </form>
-            </CardContent>
-          </Card>
-        </Grid>
+              </Link>
+            </form>
+          </CardContent>
+        </Card>
       </Grid>
-    </Base>
+    </Grid>
   );
 };

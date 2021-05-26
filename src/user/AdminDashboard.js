@@ -11,10 +11,12 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { isAuthenticated } from "../auth/helper";
 import Base from "../core/Base";
+import { ManageCategory } from "../admin/ManageCategory";
+import ManageProduct from "../admin/ManageProduct";
 
 const useStyles = makeStyles({
   links: {
@@ -27,102 +29,45 @@ const useStyles = makeStyles({
 
 export const AdminDashboard = () => {
   const { name, email } = isAuthenticated().user;
-  const classes = useStyles();
+  const [activeComponent, setActiveComponent] = useState("category");
   return (
     <Base title="Admin Dashboard" descripton="this is admin dashboard 😎">
-      <Grid container>
-        <Grid item lg={12} md={12} sm={12} xs={12}>
-          <Card className={classes.profile_head}>
-            <CardHeader title="Profile Admin" />
-            <CardContent>
-              <Typography>Name: {name}</Typography>
-              <Typography>address: {email}</Typography>
-            </CardContent>
-          </Card>
-          <Grid container>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Card>
-                <CardHeader title="Manage Everything Here 😎"></CardHeader>
-                <CardContent>
-                  <List>
-                    <ListItem>
-                      <ListItemText>
-                        <Link
-                          to="/admin/create/category"
-                          className={classes.links}
-                        >
-                          Create Category
-                        </Link>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText>
-                        <Link
-                          to="/admin/manage/categories"
-                          className={classes.links}
-                        >
-                          Manage Categories
-                        </Link>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText>
-                        <Link
-                          to="/admin/create/product"
-                          className={classes.links}
-                        >
-                          Create Product
-                        </Link>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText>
-                        <Link
-                          to="/admin/product/update"
-                          className={classes.links}
-                        >
-                          Manage Products
-                        </Link>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText>
-                        <Link to="admin/order/create" className={classes.links}>
-                          Manage Orders
-                        </Link>
-                      </ListItemText>
-                    </ListItem>
-                  </List>
-                </CardContent>
-                <CardActions>
-                  <Grid container>
-                    <Grid item lg={6} md={10} sm={12} xs={12}>
-                      <Button fullWidth variant="contained" color="secondary">
-                        <Link
-                          to="/user/dashboard"
-                          style={{ textDecoration: "none", color: "white" }}
-                        >
-                          User DashBoard
-                        </Link>
-                      </Button>
-                    </Grid>
-                    <Grid item lg={6} md={10} sm={12} xs={12}>
-                      <Button fullWidth variant="contained" color="primary">
-                        <Link
-                          to="/"
-                          style={{ textDecoration: "none", color: "white" }}
-                        >
-                          Products Page
-                        </Link>
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </CardActions>
-              </Card>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+      <div className="grid grid-cols-8 pt-20">
+        {/* TODO:sidebar */}
+        <div className="flex flex-row flex-wrap  py-10 w-full shadow-xl rounded-sm max-h-96">
+          <h1 className="px-2">Welcome Back {name} </h1>
+          <ul className="mt-10 w-full text-center">
+            <li
+              className={`py-3  ${
+                activeComponent === "category" && "neumoinset"
+              }`}
+              onClick={() => setActiveComponent("category")}
+            >
+              Category
+            </li>
+            <li
+              className={`py-3  ${
+                activeComponent === "product" && "neumoinset"
+              }`}
+              onClick={() => setActiveComponent("product")}
+            >
+              Product
+            </li>
+            <li
+              className={`py-3  ${activeComponent === "order" && "neumoinset"}`}
+              onClick={() => setActiveComponent("order")}
+            >
+              Order
+            </li>
+          </ul>
+        </div>
+        {/* TODO:WorkArea */}
+        <div className="col-start-2 col-end-9">
+          {activeComponent === "category" && <ManageCategory />}
+          {activeComponent === "product" && <ManageProduct />}
+          {activeComponent === "order" && <ManageCategory />}
+        </div>
+      </div>
     </Base>
   );
 };

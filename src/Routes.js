@@ -12,15 +12,7 @@ import { AddCategory } from "./admin/AddCategory";
 import { AddProduct } from "./admin/AddProduct";
 import { ManageCategory } from "./admin/ManageCategory";
 import Cart from "./core/Cart";
-import { makeStyles } from "@material-ui/core";
 import ManageProducts from "./admin/ManageProduct";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.default,
-    minHeight: "100vh",
-  },
-}));
 
 export default function Routes() {
   return (

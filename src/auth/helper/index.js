@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom";
 import { API } from "../../backend";
 
 export const signup = (user) => {
@@ -53,7 +54,6 @@ export const signout = async (next) => {
     if (!res) {
       return console.log("Signout failed");
     }
-
     return "Signout success";
   }
 };

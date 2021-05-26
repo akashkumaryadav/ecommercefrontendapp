@@ -6,6 +6,7 @@
   h1 {
     @apply text-2xl;
   }
+
 }
 
 @layer utilities {

@@ -106,7 +106,6 @@ export const SignUp = () => {
             />
           </span>
           <button
-            fullWidth
             className="w-full md:w-1/2 mt-4 bg-gray-800 text-white py-2"
             onClick={handleOnSubmit}
           >

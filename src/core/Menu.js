@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, Redirect, withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import { isAuthenticated, signout } from "../auth/helper/index";
 import NeumoNavLink from "./menuComponents/NeumoNavLinks";
@@ -8,12 +8,17 @@ import NeumoNavLink from "./menuComponents/NeumoNavLinks";
 const Menu = () => {
   const [profileMenu, setProfleMenu] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [redirect,setRedirect] = useState(false); 
   const { cartcount } = useSelector((state) => state.carts);
+
+  if(redirect){
+    return <Redirect to="/home"/>
+  }
 
   return (
     <Fragment>
       <span>
-        <nav className="bg-white fixed w-full z-10 top-0">
+        <nav className="bg-white fixed w-full z-10 top-0 border-b">
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -61,7 +66,7 @@ const Menu = () => {
               {/* brand */}
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start text-2xl font-bold text-gray-800">
                 <div className="flex-shrink-0 flex items-center">
-                  <span className="block lg:hidden h-8 w-auto">DC</span>
+                  <span className="block lg:hidden h-8 w-auto"> <NavLink to="/">DC</NavLink></span>
                   <span className="hidden lg:block h-8 w-auto" alt="Workflow">
                     <NavLink to="/">Digital Complex</NavLink>
                   </span>
@@ -83,21 +88,22 @@ const Menu = () => {
                   </div>
                 </div>
               </div>
-              {/* cart */}
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <NavLink
-                  to="/user/cart"
-                  className="p-1  w-8 shadow-lg rounded-full border "
-                  activeClassName="neumoinset"
-                >
-                  <span className="flex">
-                    <p className="absolute ml-4 top-2 z-10 text-white rounded-full w-4 h-4 text-center pb-5 bg-black font-bold">
-                      {cartcount}
-                    </p>
-                    <i className="block text-xl text-black  fas fa-shopping-cart"></i>
-                  </span>
-                </NavLink>
-
+                {/* cart */}
+                {isAuthenticated() && (
+                  <NavLink
+                    to="/user/cart"
+                    className="p-1  w-8 shadow-lg rounded-full border "
+                    activeClassName="neumoinset"
+                  >
+                    <span className="flex">
+                      <p className="absolute ml-4 top-2 z-10 text-white rounded-full w-4 h-4 text-center pb-5 bg-black font-bold">
+                        {cartcount}
+                      </p>
+                      <i className="block text-xl text-black  fas fa-shopping-cart"></i>
+                    </span>
+                  </NavLink>
+                )}
                 {/* profileMenu trigger */}
                 <div className="ml-3 relative">
                   <div>
@@ -120,7 +126,7 @@ const Menu = () => {
                     {!isAuthenticated() && (
                       <span className="hidden md:flex space-x-2 ">
                         <NavLink
-                          className="block px-4 py-2 text-sm text-black  shadow-md"
+                          className="block px-4 py-2 text-sm text-black  shadow-md rounded-xl"
                           to="/signin"
                           role="menuitem"
                           activeClassName="neumoinset"
@@ -187,6 +193,7 @@ const Menu = () => {
                           onClick={() =>
                             signout(() => {
                               toast.error("signed out");
+                              setRedirect(true);
                             })
                           }
                         >
